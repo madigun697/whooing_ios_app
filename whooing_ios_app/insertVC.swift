@@ -9,15 +9,19 @@
 import Foundation
 import UIKit
 
-class insertVC: UIViewController, UITextFieldDelegate {
+class insertVC: UIViewController, UITextFieldDelegate, KeyboardDelegate {
     
     @IBOutlet var popupView: UIView!
     @IBOutlet var entry_date: UITextField!
     @IBOutlet var left_account: UITextField!
     @IBOutlet var right_account: UITextField!
     
-    var assetKeyboardView: UIView!
-    var LiabilityKeyboardView: UIView!
+    var LiabilityKeyboardView: UIView {
+        let nib = UINib(nibName: "LiabilityKeyboardView", bundle: nil)
+        let objects = nib.instantiateWithOwner(self, options: nil)
+        let cView = objects[0] as! UIView
+        return cView
+    }
     
     // Application's defaults variables
     let defaults = NSUserDefaults.standardUserDefaults()
@@ -40,14 +44,13 @@ class insertVC: UIViewController, UITextFieldDelegate {
             datePicker.datePickerMode = UIDatePickerMode.Date
             datePicker.addTarget(self, action: #selector(insertVC.datePickerChanged(_:)), forControlEvents: .ValueChanged)
         } else if (textField == left_account) {
-            if let objects = NSBundle.mainBundle().loadNibNamed("AssetKeyboardView", owner: self, options: nil) {
-                assetKeyboardView = objects[0] as! UIView
-            }
-            textField.inputView = assetKeyboardView
+            let assetKeyboard = AssetKeyboardView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 200))
+            assetKeyboard.assetLabel.frame.size.width = view.frame.width
+            assetKeyboard.delegate = self
+            textField.inputView = assetKeyboard
+            
         } else if (textField == right_account) {
-            if let objects = NSBundle.mainBundle().loadNibNamed("LiabilityKeyboardView", owner: self, options: nil) {
-                LiabilityKeyboardView = objects[0] as! UIView
-            }
+            textField.inputView = LiabilityKeyboardView
         }
     }
     
@@ -62,18 +65,21 @@ class insertVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func keyWasTapped(character: String) {
+        print(character)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Getting defaults values
         user_id = defaults.objectForKey("user_id") as! String
         section_id = defaults.objectForKey("section_id") as! String
-        accounts = defaults.objectForKey("accounts") as! [String:[String:String]]
-        assets = accounts["assets"]
-        assetKeys = Array(assets.keys)
-        print(assets[assetKeys[2]])
-        liabilities = accounts["liabilities"]
-        liabilitykeys = Array(liabilities.keys)
+//        accounts = defaults.objectForKey("accounts") as! [String:[String:String]]
+//        assets = accounts["assets"]
+//        assetKeys = Array(assets.keys)
+//        liabilities = accounts["liabilities"]
+//        liabilitykeys = Array(liabilities.keys)
         entries = NSKeyedUnarchiver.unarchiveObjectWithData((defaults.objectForKey("entries") as? NSData)!)! as! [EntryVO]
         suggestions = NSKeyedUnarchiver.unarchiveObjectWithData((defaults.objectForKey("suggestions") as? NSData)!)! as! [EntryVO]
         

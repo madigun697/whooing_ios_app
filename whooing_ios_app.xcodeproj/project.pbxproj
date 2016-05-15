@@ -12,6 +12,7 @@
 		0F111E1F1CD63DE500CF5F1C /* bs_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F111E1E1CD63DE500CF5F1C /* bs_background.jpg */; };
 		0F111E221CD63E5D00CF5F1C /* asset_underline.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F111E201CD63E5D00CF5F1C /* asset_underline.png */; };
 		0F111E231CD63E5D00CF5F1C /* liabilities_underline.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F111E211CD63E5D00CF5F1C /* liabilities_underline.png */; };
+		0F6E60FC1CE87CE600C2E0B0 /* AssetKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E60FB1CE87CE600C2E0B0 /* AssetKeyboardView.swift */; };
 		0F8F04281CE20A4A005A817E /* AssetKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F8F04271CE20A4A005A817E /* AssetKeyboardView.xib */; };
 		0F8F042A1CE20A8D005A817E /* LiabilityKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F8F04291CE20A8D005A817E /* LiabilityKeyboardView.xib */; };
 		0F9644A11CC64C43004B4768 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9644A01CC64C43004B4768 /* AppDelegate.swift */; };
@@ -59,6 +60,7 @@
 		0F111E1E1CD63DE500CF5F1C /* bs_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bs_background.jpg; sourceTree = "<group>"; };
 		0F111E201CD63E5D00CF5F1C /* asset_underline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_underline.png; sourceTree = "<group>"; };
 		0F111E211CD63E5D00CF5F1C /* liabilities_underline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = liabilities_underline.png; sourceTree = "<group>"; };
+		0F6E60FB1CE87CE600C2E0B0 /* AssetKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetKeyboardView.swift; sourceTree = "<group>"; };
 		0F8F04271CE20A4A005A817E /* AssetKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetKeyboardView.xib; sourceTree = "<group>"; };
 		0F8F04291CE20A8D005A817E /* LiabilityKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiabilityKeyboardView.xib; sourceTree = "<group>"; };
 		0F96449D1CC64C43004B4768 /* whooing_ios_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = whooing_ios_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +109,7 @@
 			children = (
 				0F8F04271CE20A4A005A817E /* AssetKeyboardView.xib */,
 				0F8F04291CE20A8D005A817E /* LiabilityKeyboardView.xib */,
+				0F6E60FB1CE87CE600C2E0B0 /* AssetKeyboardView.swift */,
 			);
 			name = keyboard;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F6E60FC1CE87CE600C2E0B0 /* AssetKeyboardView.swift in Sources */,
 				0F9644BF1CC9246C004B4768 /* HTTPReqUtil.swift in Sources */,
 				0FE4A83F1CDB56D200094E29 /* insertVC.swift in Sources */,
 				0F9644C51CCCA695004B4768 /* loadingVC.swift in Sources */,

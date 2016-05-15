@@ -97,3 +97,15 @@ UIDatePickerModeCountDownTimer
 ```
  * And next, we need to declare some functions to do inputview, when we press the buttons.
  * Today's work is done. And I commit this codes in github today.
+
+### Day 29(15 May 2016)
+ * Today's mission is connecting viewcontroller to UIInputView that I made before.
+ * I create new viewcontroller, and I type the code to change button label. But I'm faced with below error.
+>Terminating app due to uncaught exception 'NSUnknownKeyException', reason: '[<whooing_ios_app.insertVC 0x7fc8c7401550> setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key test.'
+ * I don't know that why do this error occur.
+ * I solve the previous problem, but I don't know reason yet.
+ * I make uiview instead of making viewcontroller. And I add protocol and some of functions. Especially, initializeSubviews function act loading xib and adding components of view. At last I modify my insertVC code. In insertVC, I declare new uiview and set textfield's uiview.
+ * Next is constructing buttons in keyboard view.
+ * Now, I can add button as much as number of accounts. I also can control button size(fit to text), background color, and position. But I can't control fontsize yet.
+ * I change font of my buttons and labels by information of label and button that already exist.
+ * But I don't know how do I change inputview frame size and label width.
