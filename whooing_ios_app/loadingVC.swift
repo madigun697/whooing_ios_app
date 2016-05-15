@@ -121,7 +121,7 @@ class loadingVC: UIViewController {
         }
         
         for (val, key) in params {
-            params_cnt++
+            params_cnt += 1
             req_urlStr = "\(req_urlStr)\(key)=\(val)"
             if (params_cnt == params.count) {
                 req_urlStr = "\(req_urlStr)&"

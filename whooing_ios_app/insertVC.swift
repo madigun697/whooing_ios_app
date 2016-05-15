@@ -30,10 +30,6 @@ class insertVC: UIViewController, UITextFieldDelegate, KeyboardDelegate {
     var user_id:String!
     var section_id:String!
     var accounts:[String:[String:String]]!
-    var assets:[String:String]!
-    var assetKeys:[String]!
-    var liabilitykeys:[String]!
-    var liabilities:[String:String]!
     var entries:[EntryVO]!
     var suggestions: [EntryVO]!
     
@@ -44,8 +40,7 @@ class insertVC: UIViewController, UITextFieldDelegate, KeyboardDelegate {
             datePicker.datePickerMode = UIDatePickerMode.Date
             datePicker.addTarget(self, action: #selector(insertVC.datePickerChanged(_:)), forControlEvents: .ValueChanged)
         } else if (textField == left_account) {
-            let assetKeyboard = AssetKeyboardView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 200))
-            assetKeyboard.assetLabel.frame.size.width = view.frame.width
+            let assetKeyboard = AssetKeyboardView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 260))
             assetKeyboard.delegate = self
             textField.inputView = assetKeyboard
             
@@ -65,12 +60,14 @@ class insertVC: UIViewController, UITextFieldDelegate, KeyboardDelegate {
         return true
     }
     
-    func keyWasTapped(character: String) {
-        print(character)
+    func leftAccountKeyWasTapped(character: String) {
+        left_account.text = character
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(view.frame.width)
         
         // Getting defaults values
         user_id = defaults.objectForKey("user_id") as! String

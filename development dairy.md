@@ -109,3 +109,5 @@ UIDatePickerModeCountDownTimer
  * Now, I can add button as much as number of accounts. I also can control button size(fit to text), background color, and position. But I can't control fontsize yet.
  * I change font of my buttons and labels by information of label and button that already exist.
  * But I don't know how do I change inputview frame size and label width.
+ * Then I create buttons and labels in assetKeyboardView.
+ * Okay, that's it for today.

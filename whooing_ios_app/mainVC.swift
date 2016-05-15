@@ -13,8 +13,6 @@ extension Int {
     var asLocaleCurrency:String {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
-//        formatter.locale = NSLocale.currentLocale()
-//        formatter.locale = NSLocale(localeIdentifier: "ko_KR")
         return formatter.stringFromNumber(self)!
     }
 }
@@ -144,27 +142,27 @@ class mainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, Dimm
             if (s.l_account == "assets" && asset_cnt == 0) {
                 asset_1.text = l_name
                 a_money_1.text = "\(bs_assets[s.l_account_id!]!.asLocaleCurrency)"
-                asset_cnt++
+                asset_cnt += 1
             } else if (s.l_account == "assets" && asset_cnt == 1 && asset_1.text != l_name) {
                 asset_2.text = l_name
                 a_money_2.text = "\(bs_assets[s.l_account_id!]!.asLocaleCurrency)"
-                asset_cnt++
+                asset_cnt += 1
             } else if (s.l_account == "assets" && asset_cnt == 2 && asset_1.text != l_name && asset_2.text != l_name) {
                 asset_3.text = l_name
                 a_money_3.text = "\(bs_assets[s.l_account_id!]!.asLocaleCurrency)"
-                asset_cnt++
+                asset_cnt += 1
             } else if (s.r_account == "liabilities" && liabilities_cnt == 0) {
                 liabilities_1.text = r_name
                 l_money_1.text = "\(bs_liabilities[s.r_account_id!]!.asLocaleCurrency)"
-                liabilities_cnt++
+                liabilities_cnt += 1
             } else if (s.r_account == "liabilities" && liabilities_cnt == 1 && liabilities_1.text != r_name) {
                 liabilities_2.text = r_name
                 l_money_2.text = "\(bs_liabilities[s.r_account_id!]!.asLocaleCurrency)"
-                liabilities_cnt++
+                liabilities_cnt += 1
             } else if (s.r_account == "liabilities" && liabilities_cnt == 2 && liabilities_1.text != r_name && liabilities_2.text != r_name) {
                 liabilities_3.text = r_name
                 l_money_3.text = "\(bs_liabilities[s.r_account_id!]!.asLocaleCurrency)"
-                liabilities_cnt++
+                liabilities_cnt += 1
             } else if (asset_cnt == 3 && liabilities_cnt == 3) {
                 break
             }
@@ -172,9 +170,6 @@ class mainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, Dimm
         
         total_asset_money.text = "Total: \(total_assets.asLocaleCurrency)"
         total_liabilities_money.text = "Total: \(total_liabilities.asLocaleCurrency)"
-        
-//        Open.target = self.revealViewController()
-//        Open.action = Selector("revealToggle:")
         
         super.viewDidLoad()
         
