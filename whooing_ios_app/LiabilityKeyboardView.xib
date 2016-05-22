@@ -5,14 +5,58 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LiabilityKeyboardView" customModule="whooing_ios_app" customModuleProvider="target">
+            <connections>
+                <outlet property="tBtn" destination="Bn8-se-I03" id="pui-cZ-IXP"/>
+                <outlet property="tLabel" destination="9kF-92-QxA" id="luo-r3-aEJ"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="ztY-KQ-ECD">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <nil key="simulatedStatusBarMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="  자산-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kF-92-QxA">
+                    <rect key="frame" x="0.0" y="0.0" width="1000" height="21"/>
+                    <color key="backgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="9bu-he-boF"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bn8-se-I03">
+                    <rect key="frame" x="8" y="25" width="38" height="20"/>
+                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="SQx-bH-zAi"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="9kF-92-QxA" secondAttribute="trailing" id="5k6-sS-ioy"/>
+                <constraint firstItem="Bn8-se-I03" firstAttribute="top" secondItem="9kF-92-QxA" secondAttribute="bottom" constant="5" id="ATo-Pa-nCH"/>
+                <constraint firstItem="9kF-92-QxA" firstAttribute="top" secondItem="ztY-KQ-ECD" secondAttribute="top" id="DeD-y6-yr9"/>
+                <constraint firstAttribute="trailing" secondItem="9kF-92-QxA" secondAttribute="trailing" id="OZ2-jc-Eew"/>
+                <constraint firstItem="9kF-92-QxA" firstAttribute="leading" secondItem="ztY-KQ-ECD" secondAttribute="leading" id="T8R-9B-Wia"/>
+                <constraint firstItem="9kF-92-QxA" firstAttribute="top" secondItem="ztY-KQ-ECD" secondAttribute="top" id="anq-Nk-ObE"/>
+                <constraint firstItem="Bn8-se-I03" firstAttribute="leading" secondItem="ztY-KQ-ECD" secondAttribute="leading" constant="8" id="bGl-Ap-vVo"/>
+                <constraint firstItem="9kF-92-QxA" firstAttribute="leading" secondItem="ztY-KQ-ECD" secondAttribute="leading" id="hWQ-Gx-NKq"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="5k6-sS-ioy"/>
+                    <exclude reference="T8R-9B-Wia"/>
+                    <exclude reference="anq-Nk-ObE"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="746" y="36"/>
         </view>
     </objects>
 </document>

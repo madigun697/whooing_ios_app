@@ -1,18 +1,18 @@
 //
-//  AssetKeyboardView.swift
+//  LiabilityKeyboardView.swift
 //  whooing_ios_app
 //
-//  Created by Kail Madigun on 5/15/16.
+//  Created by Kail Madigun on 5/16/16.
 //  Copyright © 2016 Kail Madigun. All rights reserved.
 //
 
 import UIKit
 
-protocol L_KeyboardDelegate: class {
-    func leftAccountKeyWasTapped(character: String)
+protocol R_KeyboardDelegate: class {
+    func rightAccountKeyWasTapped(character: String)
 }
 
-class AssetKeyboardView: UIView {
+class LiabilityKeyboardView: UIView {
     
     @IBOutlet var tBtn: UIButton!
     @IBOutlet var tLabel: UILabel!
@@ -28,12 +28,12 @@ class AssetKeyboardView: UIView {
     var liabilities:[String:String]!
     var capital:[String:String]!
     var capitalKeys:[String]!
-    var expenses:[String:String]!
-    var expensesKeys:[String]!
+    var income:[String:String]!
+    var incomeKeys:[String]!
     
     // This variable will be set as the view controller so that
     // the keyboard can send messages to the view controller.
-    weak var delegate: L_KeyboardDelegate?
+    weak var delegate: R_KeyboardDelegate?
     
     // MARK:- keyboard initialization
     
@@ -51,12 +51,9 @@ class AssetKeyboardView: UIView {
         
         screenWidth = defaults.objectForKey("screenWidth") as! CGFloat
         
-        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 260))
-        scrollView.canCancelContentTouches = true
-        scrollView.delaysContentTouches = false
-        
-        let xibFileName = "AssetKeyboardView" // xib extention not included
+        let xibFileName = "LiabilityKeyboardView" // xib extention not included
         let view = NSBundle.mainBundle().loadNibNamed(xibFileName, owner: self, options: nil)[0] as! UIView
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 260))
         
         tBtn.hidden = true
         tLabel.hidden = true
@@ -71,9 +68,9 @@ class AssetKeyboardView: UIView {
         capital = accounts["capital"]
         capitalKeys = Array(capital.keys)
         capitalKeys.sortInPlace()
-        expenses = accounts["expenses"]
-        expensesKeys = Array(expenses.keys)
-        expensesKeys.sortInPlace()
+        income = accounts["income"]
+        incomeKeys = Array(income.keys)
+        incomeKeys.sortInPlace()
         
         var initX = tBtn.frame.origin.x
         var initY = tBtn.frame.origin.y
@@ -116,11 +113,11 @@ class AssetKeyboardView: UIView {
         }
         
         // Setting Label of liability
-        let liabilityLabel = UILabel(frame: CGRect(x: 0, y: initY + 28, width: screenWidth, height: 20))
-        liabilityLabel.backgroundColor = labelBackgroundColor
-        liabilityLabel.text = "  부채-"
+        let liabilityLabel = UILabel(frame: CGRect(x: 0, y: initY + 28, width: assetLabel.frame.width, height: 20))
+        liabilityLabel.backgroundColor = assetLabel.backgroundColor
+        liabilityLabel.text = "  부채+"
         liabilityLabel.textColor = UIColor.whiteColor()
-        liabilityLabel.font = labelFont
+        liabilityLabel.font = assetLabel.font
         view.addSubview(liabilityLabel)
         
         // Making buttions of liabilities
@@ -153,11 +150,11 @@ class AssetKeyboardView: UIView {
         }
         
         // Setting Label of capital
-        let capitalLabel = UILabel(frame: CGRect(x: 0, y: initY + 28, width: screenWidth, height: 20))
-        capitalLabel.backgroundColor = labelBackgroundColor
-        capitalLabel.text = "  자기자본-"
+        let capitalLabel = UILabel(frame: CGRect(x: 0, y: initY + 28, width: assetLabel.frame.width, height: 20))
+        capitalLabel.backgroundColor = assetLabel.backgroundColor
+        capitalLabel.text = "  자기자본+"
         capitalLabel.textColor = UIColor.whiteColor()
-        capitalLabel.font = labelFont
+        capitalLabel.font = assetLabel.font
         view.addSubview(capitalLabel)
         
         // Making buttions of capitals
@@ -188,20 +185,20 @@ class AssetKeyboardView: UIView {
             initX = initX + btn.frame.width + 10
             
         }
-
+        
         // Setting Label of expenses
-        let expensesLabel = UILabel(frame: CGRect(x: 0, y: initY + 28, width: screenWidth, height: 20))
-        expensesLabel.backgroundColor = labelBackgroundColor
-        expensesLabel.text = "  지출-"
+        let expensesLabel = UILabel(frame: CGRect(x: 0, y: initY + 28, width: assetLabel.frame.width, height: 20))
+        expensesLabel.backgroundColor = assetLabel.backgroundColor
+        expensesLabel.text = "  수입+"
         expensesLabel.textColor = UIColor.whiteColor()
-        expensesLabel.font = labelFont
+        expensesLabel.font = assetLabel.font
         view.addSubview(expensesLabel)
         
         // Making buttions of expenses
         initX = tBtn.frame.origin.x
         initY = expensesLabel.frame.origin.y + 25
         
-        for key in expensesKeys {
+        for key in incomeKeys {
             
             let btn = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
             btn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -211,7 +208,7 @@ class AssetKeyboardView: UIView {
             btn.frame.origin.x = initX
             btn.frame.origin.y = initY
             
-            btn.setTitle(expenses[key], forState: .Normal)
+            btn.setTitle(income[key], forState: .Normal)
             btn.titleLabel?.font = btnFont
             btn.sizeToFit()
             
@@ -226,19 +223,17 @@ class AssetKeyboardView: UIView {
             
         }
         
-        scrollView.scrollEnabled = true
         scrollView.contentSize.height = initY + 35
+        scrollView.scrollEnabled = true
         scrollView.backgroundColor = UIColor.whiteColor()
-        
         scrollView.addSubview(view)
         self.addSubview(scrollView)
-        
         view.frame = self.bounds
     }
     
     // MARK:- Button actions from .xib file
     @IBAction func test(sender: AnyObject) {
-        self.delegate?.leftAccountKeyWasTapped((sender.titleLabel!?.text)!)
+        self.delegate?.rightAccountKeyWasTapped((sender.titleLabel!?.text)!)
     }
     
 }

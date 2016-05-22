@@ -111,3 +111,13 @@ UIDatePickerModeCountDownTimer
  * But I don't know how do I change inputview frame size and label width.
  * Then I create buttons and labels in assetKeyboardView.
  * Okay, that's it for today.
+
+### Day 36(22 May 2016)
+ * Today, I have enough time to solve the problem about my input view.
+ * In swift, we have to use scrollview to be enable scroll. So I try to add scrollview in my inputview.
+ * Scroll view's operation is like to follow:
+   * ScrollView have scroll property. So we can be enable this.
+   * The screen size that we can see at once is super view size(in my case it is inputview's size)
+   * If we set scrollView's content size, we can see more content when we are scrolling.
+ * I make scrollview in programmatically, and I add the view that I made before. View have labels and buttons and I add it in scrollview, through using addsubview function.
+ * However, I got another problem. Everything works perfect, but some buttons which is postiioned bottom of view size is not work. Damn it.

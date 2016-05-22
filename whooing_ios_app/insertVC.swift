@@ -9,19 +9,19 @@
 import Foundation
 import UIKit
 
-class insertVC: UIViewController, UITextFieldDelegate, KeyboardDelegate {
+class insertVC: UIViewController, UITextFieldDelegate, L_KeyboardDelegate, R_KeyboardDelegate {
     
     @IBOutlet var popupView: UIView!
     @IBOutlet var entry_date: UITextField!
     @IBOutlet var left_account: UITextField!
     @IBOutlet var right_account: UITextField!
     
-    var LiabilityKeyboardView: UIView {
-        let nib = UINib(nibName: "LiabilityKeyboardView", bundle: nil)
-        let objects = nib.instantiateWithOwner(self, options: nil)
-        let cView = objects[0] as! UIView
-        return cView
-    }
+//    var LiabilityKeyboardView: UIView {
+//        let nib = UINib(nibName: "LiabilityKeyboardView", bundle: nil)
+//        let objects = nib.instantiateWithOwner(self, options: nil)
+//        let cView = objects[0] as! UIView
+//        return cView
+//    }
     
     // Application's defaults variables
     let defaults = NSUserDefaults.standardUserDefaults()
@@ -42,10 +42,13 @@ class insertVC: UIViewController, UITextFieldDelegate, KeyboardDelegate {
         } else if (textField == left_account) {
             let assetKeyboard = AssetKeyboardView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 260))
             assetKeyboard.delegate = self
-            textField.inputView = assetKeyboard
             
+            textField.inputView = assetKeyboard
         } else if (textField == right_account) {
-            textField.inputView = LiabilityKeyboardView
+            let liabilityKeyboard = LiabilityKeyboardView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 260))
+
+            liabilityKeyboard.delegate = self
+            textField.inputView = liabilityKeyboard
         }
     }
     
@@ -62,6 +65,10 @@ class insertVC: UIViewController, UITextFieldDelegate, KeyboardDelegate {
     
     func leftAccountKeyWasTapped(character: String) {
         left_account.text = character
+    }
+    
+    func rightAccountKeyWasTapped(character: String) {
+        right_account.text = character
     }
     
     override func viewDidLoad() {

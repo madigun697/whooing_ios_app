@@ -107,6 +107,8 @@ class mainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, Dimm
         self.liabilities_underline.backgroundColor = UIColor(patternImage: UIImage(named: "liabilities_underline.png")!)
         
         // Getting all defaults values
+        defaults.setObject(view.frame.width, forKey: "screenWidth")
+        
         user_id = defaults.objectForKey("user_id") as! String
         section_id = defaults.objectForKey("section_id") as! String
         accounts = defaults.objectForKey("accounts") as! [String:[String:String]]
