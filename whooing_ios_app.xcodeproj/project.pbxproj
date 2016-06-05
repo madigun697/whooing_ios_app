@@ -12,6 +12,7 @@
 		0F111E1F1CD63DE500CF5F1C /* bs_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F111E1E1CD63DE500CF5F1C /* bs_background.jpg */; };
 		0F111E221CD63E5D00CF5F1C /* asset_underline.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F111E201CD63E5D00CF5F1C /* asset_underline.png */; };
 		0F111E231CD63E5D00CF5F1C /* liabilities_underline.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F111E211CD63E5D00CF5F1C /* liabilities_underline.png */; };
+		0F15DF191D04173F00E73233 /* close_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F15DF181D04173F00E73233 /* close_icon.png */; };
 		0F17BDB61CE9F20D007A199D /* LiabilityKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F17BDB51CE9F20D007A199D /* LiabilityKeyboardView.swift */; };
 		0F6E60FC1CE87CE600C2E0B0 /* AssetKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E60FB1CE87CE600C2E0B0 /* AssetKeyboardView.swift */; };
 		0F8F04281CE20A4A005A817E /* AssetKeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F8F04271CE20A4A005A817E /* AssetKeyboardView.xib */; };
@@ -61,6 +62,7 @@
 		0F111E1E1CD63DE500CF5F1C /* bs_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bs_background.jpg; sourceTree = "<group>"; };
 		0F111E201CD63E5D00CF5F1C /* asset_underline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_underline.png; sourceTree = "<group>"; };
 		0F111E211CD63E5D00CF5F1C /* liabilities_underline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = liabilities_underline.png; sourceTree = "<group>"; };
+		0F15DF181D04173F00E73233 /* close_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_icon.png; sourceTree = "<group>"; };
 		0F17BDB51CE9F20D007A199D /* LiabilityKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiabilityKeyboardView.swift; sourceTree = "<group>"; };
 		0F6E60FB1CE87CE600C2E0B0 /* AssetKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetKeyboardView.swift; sourceTree = "<group>"; };
 		0F8F04271CE20A4A005A817E /* AssetKeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetKeyboardView.xib; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				0FE4A8451CDB646B00094E29 /* left_icon.png */,
 				0FE4A8461CDB646B00094E29 /* right_icon.png */,
 				0FE4A83C1CDB4EC100094E29 /* plus_button.png */,
+				0F15DF181D04173F00E73233 /* close_icon.png */,
 				0F111E201CD63E5D00CF5F1C /* asset_underline.png */,
 				0F111E211CD63E5D00CF5F1C /* liabilities_underline.png */,
 				0F111E1E1CD63DE500CF5F1C /* bs_background.jpg */,
@@ -251,6 +254,7 @@
 			files = (
 				0F111E231CD63E5D00CF5F1C /* liabilities_underline.png in Resources */,
 				0F8F042A1CE20A8D005A817E /* LiabilityKeyboardView.xib in Resources */,
+				0F15DF191D04173F00E73233 /* close_icon.png in Resources */,
 				0FE4A84A1CDB646B00094E29 /* left_icon.png in Resources */,
 				0FE4A8481CDB646B00094E29 /* date_icon.png in Resources */,
 				0F9644AE1CC64C43004B4768 /* LaunchScreen.storyboard in Resources */,

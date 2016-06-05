@@ -1,5 +1,7 @@
 ## Development dairy of Whooing app
 
+[toc]
+
 ### Day 1(18 April 2016)
  * I start to develop application.
  * I create github repository.
@@ -121,3 +123,11 @@ UIDatePickerModeCountDownTimer
    * If we set scrollView's content size, we can see more content when we are scrolling.
  * I make scrollview in programmatically, and I add the view that I made before. View have labels and buttons and I add it in scrollview, through using addsubview function.
  * However, I got another problem. Everything works perfect, but some buttons which is postiioned bottom of view size is not work. Damn it.
+
+### Day 51(5 June 2016)
+ * Why does not it work? It makes me crazy.
+ * I find the reason. The reason is keyboard view's size. When I created keyboard view, I fixed 260px for height. But, contents in keyboard view had more height than their container. So, when view delegated, contents height just 260px, and setting button's action is applied until just 260px height. It's the reason. So, I'll creating keyboard view with 1000px height in first, and after delegating this view I'll resize this view. At that time, It works finally!
+ * I can go to next step finally. I make request url with some parameters which are gained by text fields.
+ * Remained thing is validation of parameters. Entry date is not necessary, however it has defaults value, current date. Item is also unnecessary, but I'll require this value. Memo is unnecessary, so I don't make validation code about this.
+ * I make validation code. I check each textfield and if textfield is empty, call alert with different message by empty field. If some textfield is empty, I don't send request and just stop. I'll add some function that focus on empty textfield, when app call alert.
+ * In next time, I'll add http request for adding new entry and function about focus on empty textfield as I told you above.

@@ -237,7 +237,7 @@ class mainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, Dimm
         dim(.In, alpha: dimLevel, speed: dimSpeed)
     }
     
-    @IBAction func unwindFromWeb(segue: UIStoryboardSegue) {        
+    @IBAction func unwindFromInsert(segue: UIStoryboardSegue) {        
         dim(.Out, speed: dimSpeed)
     }
 }

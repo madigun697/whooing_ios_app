@@ -232,6 +232,8 @@ class initVC: UIViewController, Dimmable {
         while (token == "") {}
         
         x_api_key = "app_id=\(app_id),token=\(token),signiture=\(sha1),nounce=\(nounce),timestamp=\(timestamp)"
+        
+        defaults.setObject(x_api_key, forKey: "x_api_key")
     }
     
     // Move to LoadingVC
