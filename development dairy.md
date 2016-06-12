@@ -131,3 +131,8 @@ UIDatePickerModeCountDownTimer
  * Remained thing is validation of parameters. Entry date is not necessary, however it has defaults value, current date. Item is also unnecessary, but I'll require this value. Memo is unnecessary, so I don't make validation code about this.
  * I make validation code. I check each textfield and if textfield is empty, call alert with different message by empty field. If some textfield is empty, I don't send request and just stop. I'll add some function that focus on empty textfield, when app call alert.
  * In next time, I'll add http request for adding new entry and function about focus on empty textfield as I told you above.
+
+### Day 58 (12 June 2016)
+ * I find some mistake in my code. The available values of left account and right account is group of assets, liabilities, capitals, incomes and expenses. But my code does not check all of that. Left account check assets and right account check liabilities only. So I modified this part.
+ * NSURL return nil always. The reason of this situation is url encoding. So I solved this problem using stringByAddingPercentEncodingWithAllowedCharacters function.
+ * Today's main problem is fail of requesting URL. I guess the reason of this problem is X-API-KEY. My X-API-KEY is stored value which is made when application launced. So timestamp in X-API-KEY is not correct acutal time that I send request. So I'll try to substring stored X-API-KEY and append new timestamp in next time.

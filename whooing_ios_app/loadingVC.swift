@@ -128,6 +128,7 @@ class loadingVC: UIViewController {
             }
         }
         
+        print(x_api_key)
         let request_url = NSURL(string: req_urlStr)
         let request = NSMutableURLRequest(URL: request_url!)
         request.HTTPMethod = "GET"

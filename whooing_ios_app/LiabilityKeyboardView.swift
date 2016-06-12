@@ -194,7 +194,7 @@ class LiabilityKeyboardView: UIView {
         expensesLabel.font = assetLabel.font
         view.addSubview(expensesLabel)
         
-        // Making buttions of expenses
+        // Making buttions of incomes
         initX = tBtn.frame.origin.x
         initY = expensesLabel.frame.origin.y + 25
         
