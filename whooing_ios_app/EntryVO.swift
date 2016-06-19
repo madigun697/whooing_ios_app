@@ -9,6 +9,7 @@
 import Foundation
 
 class EntryVO : NSObject, NSCoding {
+    var entry_id:Int?
     var entry_date:String?
     var entry_title:String?
     var money:Int?
@@ -20,6 +21,7 @@ class EntryVO : NSObject, NSCoding {
     required convenience init?(coder aDecoder: NSCoder) {
         self.init()
         
+        self.entry_id = aDecoder.decodeObjectForKey("entry_id") as? Int
         self.entry_date = aDecoder.decodeObjectForKey("entry_date") as? String
         self.entry_title = aDecoder.decodeObjectForKey("entry_title") as? String
         self.money = aDecoder.decodeObjectForKey("money") as? Int
@@ -31,6 +33,7 @@ class EntryVO : NSObject, NSCoding {
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.entry_id, forKey: "entry_id")
         aCoder.encodeObject(self.entry_date, forKey: "entry_date")
         aCoder.encodeObject(self.entry_title, forKey: "entry_title")
         aCoder.encodeObject(self.money, forKey: "money")

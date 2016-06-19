@@ -21,6 +21,13 @@ class mainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, Dimm
     
     @IBOutlet var entryTable: UITableView!
     @IBOutlet var bsView: UIView!
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(mainVC.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        
+        return refreshControl
+    }()
 
     // Bar Graph
     @IBOutlet var asset_bar: UIView!
@@ -81,6 +88,11 @@ class mainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, Dimm
     var accounts:[String:[String:String]]!
     var entries: [EntryVO] = []
     var suggestions: [EntryVO] = []
+    var x_api_key:String?
+    
+    var request_result:[String:AnyObject]?
+    var req_api:String?
+    var req_flag = true
     
     // Variables of B/S
     var lastBSLoadingDate:String = ""
@@ -112,12 +124,14 @@ class mainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, Dimm
         user_id = defaults.objectForKey("user_id") as! String
         section_id = defaults.objectForKey("section_id") as! String
         accounts = defaults.objectForKey("accounts") as! [String:[String:String]]
+        x_api_key = defaults.objectForKey("x_api_key") as? String
         
-        entries = NSKeyedUnarchiver.unarchiveObjectWithData((defaults.objectForKey("entries") as? NSData)!)! as! [EntryVO]
         suggestions = NSKeyedUnarchiver.unarchiveObjectWithData((defaults.objectForKey("suggestions") as? NSData)!)! as! [EntryVO]
         
         entryTable.delegate = self
         entryTable.dataSource = self
+        
+        self.entryTable.addSubview(self.refreshControl)
         
         lastBSLoadingDate = defaults.objectForKey("lastBSLoadingDate") as! String
         
@@ -209,6 +223,11 @@ class mainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, Dimm
         self.liabilities_3.frame = CGRect(x: screenSize.width * 0.5 + 10, y: liabilities_3.frame.origin.y, width: liabilities_3.frame.width, height: liabilities_3.frame.height)
         self.total_liabilities_money.frame = CGRect(x: screenSize.width * 0.5 + 10, y: total_liabilities_money.frame.origin.y, width: total_liabilities_money.frame.width, height: total_liabilities_money.frame.height)
         
+        entries = NSKeyedUnarchiver.unarchiveObjectWithData((defaults.objectForKey("entries") as? NSData)!)! as! [EntryVO]
+        
+        handleRefresh(refreshControl)
+        
+        
         super.viewDidAppear(false)
         
     }
@@ -231,13 +250,106 @@ class mainVC: UIViewController, UITableViewDataSource, UITableViewDelegate, Dimm
         return entryCell
     }
     
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteClosure = { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+            let idx = indexPath.row
+            print(idx)
+            let api_name:String! = "entries/\(self.entries[idx].entry_id!).json"
+            let req = self.makeReq(api_name)
+            self.sendRequest(api_name, request: req)
+            
+            while (self.req_flag == false || self.req_api != api_name) {
+                
+            }
+            
+            if self.request_result!["code"] as! Int == 200 {
+                
+                self.entries.removeAtIndex(idx)
+                self.defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(self.entries), forKey: "entries")
+                
+            }
+            
+            self.handleRefresh(self.refreshControl)
+        }
+        
+        let deleteAction = UITableViewRowAction(style: .Default, title: "Delete", handler: deleteClosure)
+        
+        return [deleteAction]
+        
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        
+        entries = NSKeyedUnarchiver.unarchiveObjectWithData((defaults.objectForKey("entries") as? NSData)!)! as! [EntryVO]
+        
+        self.entryTable.reloadData()
+        refreshControl.endRefreshing()
+        
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         dim(.In, alpha: dimLevel, speed: dimSpeed)
     }
     
-    @IBAction func unwindFromInsert(segue: UIStoryboardSegue) {        
+    @IBAction func unwindFromInsert(segue: UIStoryboardSegue) {
+        
+        handleRefresh(refreshControl)
         dim(.Out, speed: dimSpeed)
     }
+    
+    
+    // Making a request
+    func makeReq(api_name:String) -> NSMutableURLRequest {
+        var req_urlStr:String! = "https://whooing.com/api/"
+        req_urlStr = req_urlStr + api_name
+        
+        let timestamp = Int(NSDate().timeIntervalSince1970)
+        let rangeOfTimestampInXAPIKEY = Range(start: (x_api_key?.rangeOfString("timestamp")?.endIndex.advancedBy(1))!, end: (x_api_key?.endIndex)!)
+        x_api_key?.replaceRange(rangeOfTimestampInXAPIKEY, with: "\(timestamp)")
+        
+        let request_url = NSURL(string: req_urlStr)
+        let request = NSMutableURLRequest(URL: request_url!)
+        request.HTTPMethod = "DELETE"
+        request.addValue(x_api_key!, forHTTPHeaderField: "X-API-KEY")
+        
+        return request
+    }
+    
+    // Sending Request
+    func sendRequest(api_name: String, request: NSMutableURLRequest){
+        do {
+            
+            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+                if error != nil {
+                    print("Error -> \(error)")
+                    return
+                }
+                
+                do {
+                    let result = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String:AnyObject]
+                    let code = result!["code"] as! Int
+                    if code == 405 {
+                        self.defaults.removeObjectForKey("access_token")
+                        self.defaults.removeObjectForKey("token_secret")
+                        self.defaults.removeObjectForKey("user_id")
+                    } else if code == 200 {
+                        self.request_result = result
+                    } else {
+                        print("Error Code -> \(code)")
+                        print(result)
+                    }
+                    self.req_api = api_name
+                    self.req_flag = true
+                    print(self.req_api)
+                } catch {
+                    print("Error -> \(error)")
+                }
+            }
+            
+            task.resume()
+        }
+    }
+
 }

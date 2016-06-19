@@ -50,8 +50,8 @@ class insertVC: UIViewController, UITextFieldDelegate, L_KeyboardDelegate, R_Key
             return
         }
         
-        let l_account:String! = left_account.text
-        let r_account:String! = right_account.text
+        var l_account:String! = left_account.text
+        var r_account:String! = right_account.text
         var item:String! = item_field.text
         
         print(item)
@@ -87,50 +87,60 @@ class insertVC: UIViewController, UITextFieldDelegate, L_KeyboardDelegate, R_Key
             for keys in assetKeys {
                 if (l_account_id == "" && assets![keys]! == left_account.text) {
                     l_account_id = keys
+                    l_account = "assets"
                 }
                 
                 if (r_account_id == "" && assets![keys]! == right_account.text) {
                     r_account_id = keys
+                    r_account = "assets"
                 }
             }
             
             for keys in liabilitykeys {
                 if (l_account_id == "" && liabilities![keys]! == left_account.text) {
                     l_account_id = keys
+                    l_account = "liabilities"
                 }
                 
                 if (r_account_id == "" && liabilities![keys]! == right_account.text) {
                     r_account_id = keys
+                    r_account = "liabilities"
                 }
             }
             
             for keys in capitalkeys {
                 if (l_account_id == "" && capitals![keys]! == left_account.text) {
                     l_account_id = keys
+                    l_account = "capital"
                 }
                 
                 if (r_account_id == "" && capitals![keys]! == right_account.text) {
                     r_account_id = keys
+                    r_account = "capital"
                 }
             }
             
             for keys in expensesKeys {
                 if (l_account_id == "" && expenses![keys]! == left_account.text) {
                     l_account_id = keys
+                    l_account = "expenses"
                 }
                 
                 if (r_account_id == "" && expenses![keys]! == right_account.text) {
                     r_account_id = keys
+                    r_account = "expenses"
                 }
             }
             
             for keys in incomeKeys {
                 if (l_account_id == "" && income![keys]! == left_account.text) {
                     l_account_id = keys
+                    l_account = "income"
                 }
                 
                 if (r_account_id == "" && income![keys]! == right_account.text) {
                     r_account_id = keys
+                    r_account = "income"
                 }
             }
         }
@@ -146,6 +156,30 @@ class insertVC: UIViewController, UITextFieldDelegate, L_KeyboardDelegate, R_Key
         }
         
         if request_result!["code"] as! Int == 200  {
+            let entry_id:Int
+            let resultEntry = request_result!["results"] as! [[String:AnyObject]]
+            let newEntry = resultEntry[0]
+            
+            entry_id = newEntry["entry_id"] as! Int
+            
+            let entry:EntryVO = EntryVO()
+            let tmp_date = e_date
+            
+            entry.entry_date = "\(tmp_date.substringWithRange(Range(start: tmp_date.startIndex, end: tmp_date.startIndex.advancedBy(4))))-\(tmp_date.substringWithRange(Range(start: tmp_date.startIndex.advancedBy(4), end: tmp_date.startIndex.advancedBy(6))))-\(tmp_date.substringWithRange(Range(start: tmp_date.startIndex.advancedBy(6), end: tmp_date.startIndex.advancedBy(8))))"
+            
+            entry.entry_id = entry_id
+            entry.entry_title = item
+            entry.money = Int(money)!
+            entry.l_account = l_account
+            entry.l_account_id = l_account_id
+            entry.r_account = r_account
+            entry.r_account_id = r_account_id
+            
+            print(entry.entry_id)
+            entries.insert(entry, atIndex: 0)
+            
+            defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(entries), forKey: "entries")
+            
             self.performSegueWithIdentifier("unwindFromInsert", sender: self)
         }
         
@@ -218,29 +252,27 @@ class insertVC: UIViewController, UITextFieldDelegate, L_KeyboardDelegate, R_Key
         var params_cnt:Int = 0
         req_urlStr = req_urlStr + api_name
         
-        if (params.count > 0) {
-            req_urlStr = req_urlStr + "?"
-        }
+        var httpBody:String = ""
         
         for (key, val) in params {
             params_cnt += 1
             if (val != "") {
-                req_urlStr = "\(req_urlStr)\(key)=\(val!)"
-                if (params_cnt != params.count) {
-                    req_urlStr = "\(req_urlStr)&"
-                }
+                httpBody += "\(key)=\(val!)&"
+            }
+            if (params_cnt == params.count) {
+                httpBody.removeAtIndex(httpBody.endIndex.advancedBy(-1))
             }
         }
         
-        
         let timestamp = Int(NSDate().timeIntervalSince1970)
+        let rangeOfTimestampInXAPIKEY = Range(start: (x_api_key?.rangeOfString("timestamp")?.endIndex.advancedBy(1))!, end: (x_api_key?.endIndex)!)
+        x_api_key?.replaceRange(rangeOfTimestampInXAPIKEY, with: "\(timestamp)")
         
-//        x_api_key = "app_id=\(app_id),token=\(token),signiture=\(sha1),nounce=\(nounce),timestamp=\(timestamp)"
-        
-        let request_url = NSURL(string: req_urlStr.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!)
+        let request_url = NSURL(string: req_urlStr)
         let request = NSMutableURLRequest(URL: request_url!)
-        request.HTTPMethod = "GET"
+        request.HTTPMethod = "POST"
         request.addValue(x_api_key!, forHTTPHeaderField: "X-API-KEY")
+        request.HTTPBody = httpBody.dataUsingEncoding(NSUTF8StringEncoding)
         
         return request
     }

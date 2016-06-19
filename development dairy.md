@@ -136,3 +136,13 @@ UIDatePickerModeCountDownTimer
  * I find some mistake in my code. The available values of left account and right account is group of assets, liabilities, capitals, incomes and expenses. But my code does not check all of that. Left account check assets and right account check liabilities only. So I modified this part.
  * NSURL return nil always. The reason of this situation is url encoding. So I solved this problem using stringByAddingPercentEncodingWithAllowedCharacters function.
  * Today's main problem is fail of requesting URL. I guess the reason of this problem is X-API-KEY. My X-API-KEY is stored value which is made when application launced. So timestamp in X-API-KEY is not correct acutal time that I send request. So I'll try to substring stored X-API-KEY and append new timestamp in next time.
+
+### Day 65 (19 June 2016)
+ * Hmm... I was wrong. It's not a reason that reqeust sending time was different with timestamp in X-API-KEY. I changed X-API-KEY throught substring function, however it didn't work. What's the matter?
+ * I found the reason of my problem about sending request new entry. The reason was HTTPMethod. Sending HTTPMethod was written in API Documents was not illumination. It is presented about HTTPMethod for using API that I want. I was fool. Damn it.
+ * So, I can make new entry in my app finally. Nest step is refresh list of entries.
+ * Refreshing table view is simple. I refered this [link](https://www.andrewcbancroft.com/2015/03/17/basics-of-pull-to-refresh-for-swift-developers/#override-viewdidload).
+ * To refresh table view, I needed an UIRefreshControl. This object is included in UITableViewController, but I didn't use UITableViewController. I used UIViewController. So I created that(There is the way of creating UIRefreshControl in above link).
+ * But there was some problem. I appended new entry in entries obejct that is contained in default object when I submited new entry. It's appended last element in array. So I changed method to append new entry from 'append' to 'insert'. And then it worked right way.
+ * I implemented delete entry function, too. I refed [this link](http://pablin.org/2014/09/25/uitableviewrowaction-introduction/). I overrided tableView function and implemted new delete action that is inclued sending DELTE HTTP request remove entry in entry array and refresh tableview.
+ * Finally, I had done my application's basic functions. Login, Getting transaction history, Adding new entry and Deleting selected entry.

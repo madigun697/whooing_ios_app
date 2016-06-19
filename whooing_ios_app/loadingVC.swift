@@ -128,7 +128,6 @@ class loadingVC: UIViewController {
             }
         }
         
-        print(x_api_key)
         let request_url = NSURL(string: req_urlStr)
         let request = NSMutableURLRequest(URL: request_url!)
         request.HTTPMethod = "GET"
@@ -263,12 +262,14 @@ class loadingVC: UIViewController {
             
             entry.entry_date = "\(tmp_date.substringWithRange(Range(start: tmp_date.startIndex, end: tmp_date.startIndex.advancedBy(4))))-\(tmp_date.substringWithRange(Range(start: tmp_date.startIndex.advancedBy(4), end: tmp_date.startIndex.advancedBy(6))))-\(tmp_date.substringWithRange(Range(start: tmp_date.startIndex.advancedBy(6), end: tmp_date.startIndex.advancedBy(8))))"
             
+            entry.entry_id = (h["entry_id"] as! Int)
             entry.entry_title = (h["item"] as! String)
             entry.money = (h["money"] as! Int)
             entry.l_account = (h["l_account"] as! String)
             entry.l_account_id = (h["l_account_id"] as! String)
             entry.r_account = (h["r_account"] as! String)
             entry.r_account_id = (h["r_account_id"] as! String)
+            
             entries.append(entry)
         }
         
